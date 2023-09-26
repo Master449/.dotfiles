@@ -7,6 +7,7 @@
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   programs.zsh.enable = true;
+  programs.steam.enable = true;
 
   users.users.david = {
     isNormalUser = true;
@@ -16,6 +17,7 @@
     packages = with pkgs; [
       discord
       kate
+      steam
       tailscale
       virt-manager
       vivaldi

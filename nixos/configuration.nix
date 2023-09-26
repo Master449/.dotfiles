@@ -27,6 +27,7 @@
 
   # Passthrough of devices to Virtual Machines
   boot.kernelParams = [ "amd_iommu=on" "iommu=pt" "iommu=1" ];
+  boot.supportedFilesystems = [ "ntfs" ];
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -63,6 +64,7 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  services.flatpak.enable = true;
 
   # Enable sound with pipewire.
   sound.enable = true;
@@ -81,6 +83,7 @@
   environment.systemPackages = with pkgs; [
       curl
       git
+      jdk17
       libvirt
       neofetch
       neovim
