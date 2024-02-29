@@ -3,7 +3,7 @@
 {
   imports = [ <home-manager/nixos> ];
 
-  fonts.fonts = with pkgs; [ (nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) ];
+  fonts.packages = with pkgs; [ (nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   programs.zsh.enable = true;
@@ -11,21 +11,43 @@
 
   users.users.david = {
     isNormalUser = true;
-    description = "David";
+    description = "David Flowers";
     extraGroups = [ "networkmanager" "wheel" "kvm" "libvirt" ];
     shell = pkgs.zsh;
     packages = with pkgs; [
+      alacritty
       discord
-      kate
       steam
       tailscale
       virt-manager
-      vivaldi
     ];
   };  
   
   home-manager.users.david = { pkgs, ... }: {
     programs = {
+      
+      alacritty = {
+	enable = true;
+	settings = {
+	  
+	  font = {
+	    size = 12;
+	    offset.x = 1;
+	    offset.y = 0;
+
+ 	    family = "JetBrainsMono Nerd Font";
+	    #bold.style = "Bold";
+	  };
+
+	  window = {
+	    padding.x = 5;
+	    padding.y = 2;
+	    dimensions.columns = 105;
+	    dimensions.lines = 30;
+	  };
+	};
+      };
+
       zsh = {
         initExtra = ''
 source /home/david/.p10k.zsh
@@ -58,6 +80,6 @@ source /home/david/.p10k.zsh
 	userEmail = "master4491@gmail.com";
       };
     };
-    home.stateVersion = "23.05";
+    home.stateVersion = "23.11";
   };
 }
