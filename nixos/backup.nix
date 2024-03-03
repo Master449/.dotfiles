@@ -5,7 +5,9 @@ let
 in
 {
   imports =
-    [ ./hardware-configuration.nix ./userspace.nix ./plasma.nix ];
+    [ ./hardware-configuration.nix ];
+
+  fonts.packages = with pkgs; [ (nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) ];
 
   # Bootloader.
   boot = {
@@ -31,6 +33,10 @@ in
   networking.hostName = "nixbox"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
+  # Configure network proxy if necessary
+  # networking.proxy.default = "http://user:password@proxy:port/";
+  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+
   # Enable networking
   networking.networkmanager.enable = true;
 
@@ -52,6 +58,24 @@ in
     LC_TIME = "en_US.UTF-8";
   };
 
+  # Enable the X11 windowing system.
+  services.xserver.enable = true;
+
+  # Configure keymap in X11
+  services.xserver = {
+    layout = "us";
+    xkbVariant = "";
+
+    displayManager.gdm = {
+      enable = true;
+      wayland = true;
+    };
+  
+    desktopManager.gnome = {
+      enable = true;
+    };
+  };
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
   services.flatpak.enable = true;
@@ -67,16 +91,19 @@ in
     pulse.enable = true;
   };
 
-#  users.users.david = {
-#    isNormalUser = true;
-#    description = "David Flowers";
-#    extraGroups = [ "networkmanager" "wheel" ];
-#    packages = with pkgs; [
-#      discord
-#      firefox
-#      steam
-#    ];
-#  };
+  # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.users.david = {
+    isNormalUser = true;
+    description = "David Flowers";
+    extraGroups = [ "networkmanager" "wheel" ];
+    packages = with pkgs; [
+      discord
+      firefox
+      steam
+    ];
+  };
+
+  programs.steam.enable = true;
 
   # Allow unfree packages
   nixpkgs = {
@@ -94,7 +121,6 @@ in
   environment.systemPackages = with pkgs; [
     alacritty
     curl
-    firefox
     git
     jdk17
     libvirt
@@ -106,9 +132,6 @@ in
     wl-clipboard
     zsh
   ];
-  
-  programs.steam.enable = true;
-  programs.zsh.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
