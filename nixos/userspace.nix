@@ -48,6 +48,25 @@
 	};
       };
 
+      git = {
+        enable = true;
+        userName = "David Flowers II";
+	userEmail = "master4491@gmail.com";
+      };
+
+
+      neovim = {
+        enable = true;
+        plugins = [
+	  pkgs.vimPlugins.nvim-treesitter
+	];
+       extraConfig = ''
+set expandtab
+set ignorecase
+set number
+         '';
+      };
+
       zsh = {
         initExtra = ''
 source /home/david/.p10k.zsh
@@ -72,12 +91,6 @@ source /home/david/.p10k.zsh
 	    file = "p10k.zsh";
 	  }
 	];
-      };
-
-      git = {
-        enable = true;
-        userName = "David Flowers II";
-	userEmail = "master4491@gmail.com";
       };
     };
     home.stateVersion = "23.11";
