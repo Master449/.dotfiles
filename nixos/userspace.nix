@@ -48,8 +48,8 @@
 
       git = {
         enable = true;
-        userName = "David Flowers II";
-	userEmail = "master4491@gmail.com";
+        userName = "David";
+	userEmail = "20436145+Master449@users.noreply.github.com";
       };
 
 
