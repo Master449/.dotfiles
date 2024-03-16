@@ -5,14 +5,13 @@
 
   fonts.packages = with pkgs; [ (nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) ];
 
-  programs.zsh.enable = true;
+  # This has to be here sadly
   programs.steam.enable = true;
 
   users.users.david = {
-    isNormalUser = true;
     description = "David Flowers";
     extraGroups = [ "networkmanager" "wheel" "kvm" "libvirt" ];
-    shell = pkgs.zsh;
+    isNormalUser = true;
     packages = with pkgs; [
       alacritty
       discord
@@ -20,25 +19,25 @@
       tailscale
       virt-manager
     ];
+    shell = pkgs.zsh;
   };  
   
   home-manager.users.david = { pkgs, ... }: {
     programs = {
-      
       alacritty = {
 	enable = true;
 	settings = {
 	  
 	  font = {
-	    size = 11;
-	    offset.x = 1;
-	    offset.y = 0;
-
  	    family = "JetBrainsMono Nerd Font";
+	    offset.x = 0;
+	    offset.y = 0;
+	    size = 11;
 	  };
 
 	  window = {
 	    blur = true;
+	    decorations = "None";
 	    dimensions.columns = 105;
 	    dimensions.lines = 30;
 	    opacity = 0.9;
@@ -51,8 +50,8 @@
 
       git = {
         enable = true;
-        userName = "David";
 	userEmail = "20436145+Master449@users.noreply.github.com";
+        userName = "David";
       };
 
 
@@ -89,6 +88,6 @@ source /home/david/.p10k.zsh
 	];
       };
     };
-    home.stateVersion = "23.11";
+    home.stateVersion = "24.05";
   };
 }

@@ -15,7 +15,6 @@ in
     
     kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [ "amd_iommu=on" "iommu=pt" "iommu=1" ];
-    supportedFilesystems = [ "ntfs" ];
     
     loader = {
       efi = {
@@ -29,60 +28,11 @@ in
         default = "saved";
       };
     };
+    
+    supportedFilesystems = [ "ntfs" ];
+  
   };
 
-  networking.hostName = "nixbox"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Enable networking
-  networking.networkmanager.enable = true;
-
-  # Set your time zone.
-  time.timeZone = "America/Chicago";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_US.UTF-8";
-    LC_IDENTIFICATION = "en_US.UTF-8";
-    LC_MEASUREMENT = "en_US.UTF-8";
-    LC_MONETARY = "en_US.UTF-8";
-    LC_NAME = "en_US.UTF-8";
-    LC_NUMERIC = "en_US.UTF-8";
-    LC_PAPER = "en_US.UTF-8";
-    LC_TELEPHONE = "en_US.UTF-8";
-    LC_TIME = "en_US.UTF-8";
-  };
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-  services.flatpak.enable = true;
-
-  # Enable sound with pipewire.
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-  };
-
-  # Allow unfree packages
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-      packageOverrides = pkgs: with pkgs; {
-        unstable = import unstableTarball {
-	  config = config.nixpkgs.config;
-	};
-      };
-    };
-  };
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
     alacritty
     curl
@@ -98,6 +48,52 @@ in
     wl-clipboard
     zsh
   ];
+  
+  i18n.defaultLocale = "en_US.UTF-8";
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "en_US.UTF-8";
+    LC_IDENTIFICATION = "en_US.UTF-8";
+    LC_MEASUREMENT = "en_US.UTF-8";
+    LC_MONETARY = "en_US.UTF-8";
+    LC_NAME = "en_US.UTF-8";
+    LC_NUMERIC = "en_US.UTF-8";
+    LC_PAPER = "en_US.UTF-8";
+    LC_TELEPHONE = "en_US.UTF-8";
+    LC_TIME = "en_US.UTF-8";
+  };
+
+  networking.hostName = "nixbox"; # Define your hostname.
+  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.networkmanager.enable = true;
+
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+      packageOverrides = pkgs: with pkgs; {
+        unstable = import unstableTarball {
+	  config = config.nixpkgs.config;
+	};
+      };
+    };
+  };
+
+  # Enable CUPS to print documents.
+  services.printing.enable = true;
+  services.flatpak.enable = true;
+
+  time.timeZone = "America/Chicago";
+  
+  # Enable sound with pipewire.
+  sound.enable = true;
+  hardware.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
+
   
   programs.steam.enable = true;
   programs.zsh.enable = true;
