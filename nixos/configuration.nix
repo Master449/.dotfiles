@@ -70,17 +70,6 @@ in
     pulse.enable = true;
   };
 
-#  users.users.david = {
-#    isNormalUser = true;
-#    description = "David Flowers";
-#    extraGroups = [ "networkmanager" "wheel" ];
-#    packages = with pkgs; [
-#      discord
-#      firefox
-#      steam
-#    ];
-#  };
-
   # Allow unfree packages
   nixpkgs = {
     config = {

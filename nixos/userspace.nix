@@ -30,7 +30,7 @@
 	settings = {
 	  
 	  font = {
-	    size = 12;
+	    size = 11;
 	    offset.x = 1;
 	    offset.y = 0;
 
@@ -38,10 +38,13 @@
 	  };
 
 	  window = {
-	    padding.x = 5;
-	    padding.y = 2;
+	    blur = true;
 	    dimensions.columns = 105;
 	    dimensions.lines = 30;
+	    opacity = 0.9;
+	    padding.x = 5;
+	    padding.y = 2;
+	    title = "Terminal";
 	  };
 	};
       };
@@ -55,14 +58,8 @@
 
       neovim = {
         enable = true;
-       extraConfig = ''
-set expandtab
-set ignorecase
-set number
-set shiftwidth=4
-set smartindent
-set tabstop=4
-
+       	extraConfig = ''
+set tabstop=2 shiftwidth=2 expandtab | retab
          '';
       };
 
