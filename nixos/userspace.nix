@@ -36,11 +36,8 @@
 	  };
 
 	  window = {
-	    blur = true;
-	    decorations = "None";
 	    dimensions.columns = 105;
 	    dimensions.lines = 30;
-	    opacity = 0.9;
 	    padding.x = 5;
 	    padding.y = 2;
 	    title = "Terminal";
@@ -88,6 +85,16 @@ source /home/david/.p10k.zsh
 	];
       };
     };
-    home.stateVersion = "24.05";
+    home.file."${config.users.users.david.home}/.config/autostart/discord.desktop" = {
+      text = ''
+[Desktop Entry]
+Exec=Discord
+Icon=discord
+Name=Discord
+Type=Application
+      '';
+    };
+
+    home.stateVersion = "23.11";
   };
 }
