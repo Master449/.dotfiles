@@ -1,5 +1,0 @@
-[user]
-	name = David Flowers II
-	email = master4491@gmail.com
-[alias]
-	adog = log --all --decorate --oneline --graph
