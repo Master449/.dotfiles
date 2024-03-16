@@ -5,7 +5,6 @@
 
   fonts.packages = with pkgs; [ (nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) ];
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   programs.zsh.enable = true;
   programs.steam.enable = true;
 
@@ -36,7 +35,6 @@
 	    offset.y = 0;
 
  	    family = "JetBrainsMono Nerd Font";
-	    #bold.style = "Bold";
 	  };
 
 	  window = {
@@ -57,13 +55,14 @@
 
       neovim = {
         enable = true;
-        plugins = [
-	  pkgs.vimPlugins.nvim-treesitter
-	];
        extraConfig = ''
 set expandtab
 set ignorecase
 set number
+set shiftwidth=4
+set smartindent
+set tabstop=4
+
          '';
       };
 
@@ -87,7 +86,7 @@ source /home/david/.p10k.zsh
 	  }
 	  {
 	    name = "powerlevel10k-config";
-	    src = ./p10k-config;
+	    src = ./misc/p10k-config;
 	    file = "p10k.zsh";
 	  }
 	];

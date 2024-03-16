@@ -4,8 +4,11 @@ let
     fetchTarball https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz; 
 in
 {
-  imports =
-    [ ./hardware-configuration.nix ./userspace.nix ./plasma.nix ];
+  imports = [ 
+    ./hardware-configuration.nix 
+    ./userspace.nix 
+    ./desktops/plasma.nix
+    ];
 
   # Bootloader.
   boot = {
