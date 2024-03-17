@@ -1,7 +1,9 @@
 { lib, config, pkgs, ... }:
 
 {
-  imports = [ <home-manager/nixos> ];
+  imports = [ <home-manager/nixos> 
+  ./modules/configFiles.nix
+  ];
 
   fonts.packages = with pkgs; [ (nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) ];
 
@@ -55,7 +57,8 @@
       neovim = {
         enable = true;
        	extraConfig = ''
-set tabstop=2 shiftwidth=2 expandtab | retab
+set number relativenumber
+set clipboard=unnamedplus
          '';
       };
 
@@ -85,6 +88,7 @@ source /home/david/.p10k.zsh
 	];
       };
     };
+
     home.file."${config.users.users.david.home}/.config/autostart/discord.desktop" = {
       text = ''
 [Desktop Entry]
@@ -94,7 +98,19 @@ Name=Discord
 Type=Application
       '';
     };
+    home.file."${config.users.users.david.home}/.config/htop/htoprc" = {
+      text = (builtins.readFile ./htoprc);
+    };
 
-    home.stateVersion = "23.11";
+#  configFiles = {
+#    enable = true;
+#    files = [
+#      { target = ".config/discord.desktop"; source = "./config/discordAutostart"; }
+#      { target = ".config/htop/htoprc"; source = "./config/htoprc"; }
+#      # Add more configurations as needed
+#    ];
+#  };
+
+home.stateVersion = "23.11";
   };
 }

@@ -35,9 +35,11 @@ in
 
   environment.systemPackages = with pkgs; [
     alacritty
+    btop
     curl
     firefox
     git
+    htop
     jdk17
     libvirt
     neofetch
