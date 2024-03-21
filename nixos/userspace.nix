@@ -99,7 +99,7 @@ Type=Application
       '';
     };
     home.file."${config.users.users.david.home}/.config/htop/htoprc" = {
-      text = (builtins.readFile ./htoprc);
+      text = (builtins.readFile ./config/htoprc);
     };
 
 #  configFiles = {
