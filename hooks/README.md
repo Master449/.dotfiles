@@ -127,6 +127,18 @@ Where do I get a GPU vBIOS?
 
 You can either rip your own using GPU-Z on Windows or find your **exact model** [here](https://www.techpowerup.com/vgabios/)
 
+## Windows 11
+
+Workaround to disable TPM and SecureBoot check
+
+Regedit: `HKEY_LOCAL_MACHINE\SYSTEM\Setup` 
+
+add a new item named "LabConfig"
+
+Within the newly created LabConfig item, make two DWORD entries setting their values both to hex 1
+
+`BypassTPMCheck` and `BypassSecureBootCheck`
+
 ## Credits
 
 Shoutout to [QaidVoids Single GPU Passthrough Guide](https://github.com/QaidVoid/Complete-Single-GPU-Passthrough) and the [VFIO Subreddit](https://reddit.com/r/VFIO) and the random users across MANY boards who have run into these issues in the past. ❤️
