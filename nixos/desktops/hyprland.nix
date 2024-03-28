@@ -1,21 +1,11 @@
 { lib, config, pkgs, ... }:
 
 {
-  # Enable the X11 windowing system.
+  services.xserver.displayManager.sddm.enable = true;
   services.xserver.enable = true;
 
-  # Configure keymap in X11
-  services.xserver = {
-    layout = "us";
-    xkbVariant = "";
-
-    displayManager.gdm = {
-      enable = true;
-      wayland = true;
-    };
-  
-    desktopManager.gnome = {
-      enable = true;
-    };
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
   };
 }

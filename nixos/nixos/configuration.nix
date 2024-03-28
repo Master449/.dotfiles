@@ -7,7 +7,7 @@ in
   imports = [ 
     ./hardware-configuration.nix 
     ./userspace.nix 
-    ./desktops/hyprland.nix
+    ./desktops/plasma.nix
     ];
 
   # Bootloader.
@@ -46,7 +46,6 @@ in
     unstable.neovim
     qemu
     tailscale
-    xfce.thunar
     wget
     wl-clipboard
     zsh
@@ -100,18 +99,6 @@ in
   
   programs.steam.enable = true;
   programs.zsh.enable = true;
-
-  virtualisation.libvirtd = {
-    enable = true;
-    qemu = {
-      package = pkgs.qemu_kvm;
-      runAsRoot = true;
-      swtpm.enable = true;
-      ovmf = {
-        enable = true;
-      };
-    };
-  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
