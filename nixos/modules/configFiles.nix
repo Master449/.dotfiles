@@ -6,11 +6,12 @@ let
   cfg = config.myConfigFiles;
 in
 {
-  options.myConfigFiles = {
+    imports = [ <home-manager/nixos> ];
+    options.myConfigFiles = {
     enable = mkEnableOption "myConfigFiles";
 
     files = mkOption {
-      type = types.listOf (types.attrsOf types.str);
+      type = types.listOf (types.attrsOf types.path);
       default = [];
       example = literalExample ''
         [
@@ -24,7 +25,7 @@ in
 
   config = mkIf cfg.enable {
     home-manager.users.david.home.file = builtins.foldl' (acc: file: acc // {
-      "${file.target}".source = file.source;
+      ${file.target}.source = file.source;
     }) {} cfg.files;
   };
 }

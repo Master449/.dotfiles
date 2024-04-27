@@ -1,9 +1,13 @@
 { config, pkgs, ... }:
+let
+  unstableTarball = 
+    fetchTarball https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz; 
+in
 {
   imports = [ 
     ./hardware-configuration.nix 
     ./userspace.nix 
-    ./desktops/hyprland.nix
+    ./desktops/plasma6.nix
     ];
 
   # Bootloader.
@@ -39,7 +43,7 @@
     jdk17
     libvirt
     neofetch
-    neovim
+    unstable.neovim
     qemu
     tailscale
     xfce.thunar
@@ -65,9 +69,21 @@
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;
 
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+      packageOverrides = pkgs: with pkgs; {
+        unstable = import unstableTarball {
+	  config = config.nixpkgs.config;
+	};
+      };
+    };
+  };
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
   services.flatpak.enable = true;
+  services.tailscale.enable = true;
 
   time.timeZone = "America/Chicago";
   
