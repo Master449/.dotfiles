@@ -107,14 +107,6 @@ Type=Application
         text = (builtins.readFile ./htoprc);
       };
 
-  #  configFiles = {
-  #    enable = true;
-  #    files = [
-  #      { target = ".config/discord.desktop"; source = "./config/discordAutostart"; }
-  #      { target = ".config/htop/htoprc"; source = "./config/htoprc"; }
-  #      # Add more configurations as needed
-  #    ];
-  #  };
   home.stateVersion = "23.11";
   };
 }

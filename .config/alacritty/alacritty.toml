@@ -1,8 +1,4 @@
-#import = ["C:\\Users\\David\\AppData\\Roaming\\alacritty\\alacritty-master\\dracula.toml"]
-import = ["/home/david/.config/alacritty/alacritty-master/dracula.toml"]
-
-[shell]
-program = "ubuntu"
+import = ["/home/david/.config/alacritty/dracula.toml"]
 
 [font]
 size = 12.0
