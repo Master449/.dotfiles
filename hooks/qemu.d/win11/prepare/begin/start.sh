@@ -12,7 +12,7 @@ exec 1>/home/david/Desktop/startlog.out 2>&1
 set -x
 
 # Kill Display Manager
-su -c "pidof kwin_wayland | pkill" -s /run/current-system/sw/bin/bash david
+pidof kwin_wayland | pkill
 systemctl stop display-manager
 systemctl stop sddm
 
