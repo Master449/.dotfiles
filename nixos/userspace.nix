@@ -18,9 +18,11 @@
       vscode
       discord
       dolphin
+      prismlauncher
       steam
       tailscale
       virt-manager
+      vivaldi
     ];
     shell = pkgs.zsh;
   };  

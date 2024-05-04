@@ -8,14 +8,16 @@ in
     ./hardware-configuration.nix 
     ./userspace.nix 
     ./desktops/plasma6.nix
+    ./modules/virtualization.nix
+    ./modules/samba.nix
     ];
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Bootloader.
   boot = {
-    
     kernelPackages = pkgs.linuxPackages_latest;
-    kernelParams = [ "amd_iommu=on" "iommu=pt" "iommu=1" ];
-    
+
     loader = {
       efi = {
         canTouchEfiVariables = true;
@@ -28,27 +30,36 @@ in
         default = "saved";
       };
     };
-    
     supportedFilesystems = [ "ntfs" ];
-  
   };
+
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
+  };
+
+  services.xserver.videoDrivers = [ "amdgpu" ];
 
   environment.systemPackages = with pkgs; [
     alacritty
     btop
     curl
-    firefox
+    xdelta
     git
     htop
     jdk17
-    libvirt
+    killall
+    lutris
     neofetch
-    unstable.neovim
-    qemu
+    neovim
+    nvtop
+    p7zip
     tailscale
-    xfce.thunar
     wget
     wl-clipboard
+    wine
+    winetricks
     zsh
   ];
   
@@ -69,21 +80,11 @@ in
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;
 
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-      packageOverrides = pkgs: with pkgs; {
-        unstable = import unstableTarball {
-	  config = config.nixpkgs.config;
-	};
-      };
-    };
-  };
-
   # Enable CUPS to print documents.
   services.printing.enable = true;
   services.flatpak.enable = true;
   services.tailscale.enable = true;
+  services.openssh.enable = true;
 
   time.timeZone = "America/Chicago";
   
@@ -97,22 +98,14 @@ in
     alsa.support32Bit = true;
     pulse.enable = true;
   };
-
   
-  programs.steam.enable = true;
-  programs.zsh.enable = true;
-
-  virtualisation.libvirtd = {
+  programs.steam = {
     enable = true;
-    qemu = {
-      package = pkgs.qemu_kvm;
-      runAsRoot = true;
-      swtpm.enable = true;
-      ovmf = {
-        enable = true;
-      };
-    };
+    gamescopeSession.enable = true;
   };
+
+  programs.gamemode.enable = true;
+  programs.zsh.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -120,6 +113,7 @@ in
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  nixpkgs.config.allowUnfree = true;
   system.stateVersion = "23.11"; # Did you read the comment?
 
 }
