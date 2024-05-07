@@ -3,12 +3,14 @@
   imports = [ 
     ./hardware-configuration.nix 
     ./userspace.nix 
-    ./desktops/plasma6.nix
+#    ./desktops/plasma6.nix
+    ./desktops/gnome.nix
     ./modules/virtualization.nix
     ./modules/samba.nix
     ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.nixPath = [ "nixos-config=/home/david/Documents/.dotfiles/nixos/configuration.nix" ];
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
