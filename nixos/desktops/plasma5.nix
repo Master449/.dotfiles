@@ -3,11 +3,7 @@
 {
   services.xserver.enable = true;
 
-  services.xserver = {
-    layout = "us";
-    xkbVariant = "";
-
-    displayManager = {
+  services.displayManager = {
       defaultSession="plasmawayland";
       sddm = {
         enable = true;

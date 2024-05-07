@@ -5,7 +5,7 @@
 
   services.displayManager.enable = true;
 
-  services.xserver.displayManager = {
+  services.displayManager = {
     sddm.enable = true;
     sddm.wayland.enable = true;
   };
