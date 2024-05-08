@@ -75,9 +75,9 @@ source /home/david/.p10k.zsh
           gp = "git push";
           gs = "git status";
           ll = "ls -Al --group-directories-first";
-	  l = "la -lh --group-directories-first";
-	  nix-boot = "sudo nixos-rebuild boot";
-	  nix-switch = "sudo nixos-rebuild switch";
+	      l = "la -lh --group-directories-first";
+	      nix-boot = "sudo nixos-rebuild boot";
+	      nix-switch = "sudo nixos-rebuild switch";
       };
       plugins = [
         {

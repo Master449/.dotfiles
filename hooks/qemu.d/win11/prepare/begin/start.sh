@@ -1,5 +1,8 @@
 #!/run/current-system/sw/bin/bash
 
+#debugging
+set -x
+
 # Send info to log.txt
 exec 1>/home/david/Desktop/startlog.out 2>&1
 
@@ -8,11 +11,8 @@ exec 1>/home/david/Desktop/startlog.out 2>&1
 #systemctl set-property --runtime -- system.slice AllowedCPUs=8-15,24-31
 #systemctl set-property --runtime -- init.scope AllowedCPUs=8-15,24-31
 
-#debugging
-set -x
-
 # Kill Display Manager
-pidof kwin_wayland | pkill
+/nix/store/gw98rbwk3f19pvv1610kyjn8h5v53834-system-path/bin/killall kwin_wayland
 systemctl stop display-manager
 systemctl stop sddm
 
@@ -33,5 +33,3 @@ modprobe -r snd_hda_intel
 modprobe vfio
 modprobe vfio_pci
 modprobe vfio_iommu_type1
-
-        #su -c "pidof kwin_wayland | pkill" -s /run/current-system/sw/bin/bash david
