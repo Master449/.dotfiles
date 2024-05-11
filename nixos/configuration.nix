@@ -4,7 +4,6 @@
     ./hardware-configuration.nix 
     ./userspace.nix 
     ./desktops/plasma6.nix
-#    ./desktops/gnome.nix
     ./modules/virtualization.nix
     ./modules/samba.nix
     ];
