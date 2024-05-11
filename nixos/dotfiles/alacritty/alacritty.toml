@@ -4,9 +4,9 @@ import = ["/home/david/.config/alacritty/dracula.toml"]
 #[shell]
 #program = "ubuntu"
 
-[font]
-size = 12.0
-offset = { x = 1, y = 0 }
+#[font]
+#size = 12.0
+#offset = { x = 1, y = 0 }
 
 [font.bold]
 family = "JetBrainsMono Nerd Font"
@@ -24,7 +24,7 @@ style = "Italic"
 family = "JetBrainsMono Nerd Font"
 style = "Regular"
 
-[window]
-padding = { x = 5, y = 2 }
-title = "Terminal"
-dimensions = { columns = 105, lines = 30 }
+#[window]
+#padding = { x = 5, y = 2 }
+#title = "Terminal"
+#dimensions = { columns = 105, lines = 30 }
