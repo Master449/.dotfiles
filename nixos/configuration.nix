@@ -39,7 +39,6 @@
   };
 
   environment.systemPackages = with pkgs; [
-    alacritty
     btop
     curl
     xdelta
@@ -47,6 +46,7 @@
     htop
     jdk17
     killall
+    kitty
     lutris
     neofetch
     neovim
