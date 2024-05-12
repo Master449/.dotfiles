@@ -6,20 +6,23 @@
   # This has to be here sadly
   programs.steam.enable = true;
   programs.dconf.enable = true; 
-  
+  services.mullvad-vpn.enable = true;
   users.users.david = {
     description = "David Flowers";
     extraGroups = [ "networkmanager" "wheel" "kvm" "libvirt" "libvirtd" ];
     isNormalUser = true;
     packages = with pkgs; [
-      vscode
       discord
       dolphin
+      mullvad-vpn
       prismlauncher
+      qbittorrent
+      ryujinx
       steam
       tailscale
       virt-manager
       vivaldi
+      vscode
       yakuake
     ];
     shell = pkgs.zsh;

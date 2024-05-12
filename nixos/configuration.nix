@@ -75,6 +75,7 @@
 
   networking.hostName = "nixbox";
   # networking.wireless.enable = true;
+  networking.iproute2.enable = true;
   networking.networkmanager.enable = true;
   
   sound.enable = true;
