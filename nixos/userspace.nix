@@ -20,6 +20,7 @@
       ryujinx
       steam
       tailscale
+      tor-browser
       virt-manager
       vivaldi
       vscode

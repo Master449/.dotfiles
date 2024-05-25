@@ -8,6 +8,8 @@
     ./modules/samba.nix
     ];
 
+  nix.gc.automatic = true;
+  nix.gc.options = "--delete-older-than 14d";
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nix.nixPath = [ 
     "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos-unstable"
@@ -25,8 +27,30 @@
       grub = {
         efiSupport = true;
         device = "nodev";
-        useOSProber = true;
+        useOSProber = false;
         default = "saved";
+        extraEntries = ''
+menuentry 'Windows Boot Manager (on /dev/nvme0n1p1)' --class windows --class os $menuentry_id_option 'osprober-efi-20A4-5216' {
+	savedefault
+	insmod part_gpt
+	insmod fat
+	search --no-floppy --fs-uuid --set=root 20A4-5216
+	chainloader /efi/Microsoft/Boot/bootmgfw.efi
+}
+menuentry 'Ubuntu 24.04 LTS (24.04) (on /dev/sda2)' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-simple-99e0a120-c9dd-4a1c-b757-be1d72d9d192' {
+	savedefault
+	insmod part_gpt
+	insmod ext2
+	set root='hd0,gpt2'
+	if [ x$feature_platform_search_hint = xy ]; then
+	  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  99e0a120-c9dd-4a1c-b757-be1d72d9d192
+	else
+	  search --no-floppy --fs-uuid --set=root 99e0a120-c9dd-4a1c-b757-be1d72d9d192
+	fi
+	linux /boot/vmlinuz root=UUID=99e0a120-c9dd-4a1c-b757-be1d72d9d192 ro quiet splash $vt_handoff
+	initrd /boot/initrd.img
+}
+'';
       };
     };
     supportedFilesystems = [ "ntfs" ];
@@ -42,6 +66,7 @@
     btop
     curl
     xdelta
+    firefox
     git
     htop
     jdk17
@@ -77,15 +102,18 @@
   # networking.wireless.enable = true;
   networking.iproute2.enable = true;
   networking.networkmanager.enable = true;
-  
+
   sound.enable = true;
   hardware.pulseaudio.enable = false;
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
   security.rtkit.enable = true;
 
   services = {
     printing.enable = true;
     flatpak.enable = true;
     tailscale.enable = true;
+    tor.enable = true;
     openssh.enable = true;
     pipewire = {
       enable = true;
