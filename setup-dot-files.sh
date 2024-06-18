@@ -1,14 +1,29 @@
 #!/usr/bin/env bash
 
-config_dir="/home/david/.config"
-source_dir="/home/david/Documents/.dotfiles/dotfiles"
+script_name=$(basename "$0")
 
-for file in "$source_dir"/*; do
-    filename=$(basename "$file")
-    if [ ! -L "$config_dir/$filename" ]; then
-	echo "Symlinking to $config_dir/$filename"
-	ln -s "$file" "$config_dir/$filename"
-    else
-	echo "Symlink Exists, Ignoring"
-    fi
+shopt -s dotglob
+
+for file in *; do
+  if [[ "$file" != "$script_name" && ! -d "$file" ]]; then
+    echo "ln -s "$(pwd)/$file" "$HOME/$file""
+  fi
 done
+
+for file in dotfiles/*; do
+  target="$HOME/.config/$(basename "$file")"
+  if [ -e "$target" ]; then
+    echo "Skipping $file, $target already exists."
+  else
+    echo "ln -s "$(pwd)/$file" "$target""
+  fi
+done
+#for file in "$source_dir"/*; do
+#    filename=$(basename "$file")
+#    if [ ! -L "$config_dir/$filename" ]; then
+#	echo "Symlinking to $config_dir/$filename"
+#	ln -s "$file" "$config_dir/$filename"
+#    else
+#	echo "Symlink Exists, Ignoring"
+#    fi
+#done
