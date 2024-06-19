@@ -6,7 +6,7 @@ shopt -s dotglob
 
 for file in *; do
   if [[ "$file" != "$script_name" && ! -d "$file" ]]; then
-    echo "ln -s "$(pwd)/$file" "$HOME/$file""
+    ln -s "$(pwd)/$file" "$HOME/$file"
   fi
 done
 
@@ -15,7 +15,7 @@ for file in dotfiles/*; do
   if [ -e "$target" ]; then
     echo "Skipping $file, $target already exists."
   else
-    echo "ln -s "$(pwd)/$file" "$target""
+    ln -s "$(pwd)/$file" "$target"
   fi
 done
 #for file in "$source_dir"/*; do
