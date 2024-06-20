@@ -5,25 +5,23 @@ script_name=$(basename "$0")
 shopt -s dotglob
 
 for file in *; do
-  if [[ "$file" != "$script_name" && ! -d "$file" ]]; then
-    ln -s "$(pwd)/$file" "$HOME/$file"
+  if [[ "$file" != "$script_name" ]]; then
+    if [[ ! -d "$file" && ! -e "$HOME/$file" ]]; then
+      ln -s "$(pwd)/$file" "$HOME/$file"
+    elif [[ ! -d "$file" ]]; then
+      echo "Skipping $HOME/$file already exists."
+    fi
   fi
 done
 
 for file in dotfiles/*; do
-  target="$HOME/.config/$(basename "$file")"
-  if [ -e "$target" ]; then
-    echo "Skipping $file, $target already exists."
+  if [ -e "$HOME/.config/$(basename "$file")" ]; then
+    echo "Skipping $HOME/.config/$file already exists."
   else
-    ln -s "$(pwd)/$file" "$target"
+    if ln -s "$(pwd)/$file" "$HOME/.config/$(basename $file)"; then
+      echo "Succesfully created sym link at $HOME/.config/$(basename $file)"
+    else
+      echo "Could not create sym link at $HOME/.config/$(basename $file) (broken link?)"
+    fi
   fi
 done
-#for file in "$source_dir"/*; do
-#    filename=$(basename "$file")
-#    if [ ! -L "$config_dir/$filename" ]; then
-#	echo "Symlinking to $config_dir/$filename"
-#	ln -s "$file" "$config_dir/$filename"
-#    else
-#	echo "Symlink Exists, Ignoring"
-#    fi
-#done
