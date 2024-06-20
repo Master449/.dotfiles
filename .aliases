@@ -1,0 +1,9 @@
+
+alias ll="ls -aAlhp --group-directories-first"
+
+alias gs="git status"
+alias gc="git commit"
+alias gp="git push"
+alias ga="git add"
+alias gl="git log --all --oneline --decorate"
+

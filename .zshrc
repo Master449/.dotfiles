@@ -10,8 +10,5 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-alias gs="git status"
-alias gc="git commit"
-alias gp="git push"
-alias ga="git add"
-alias ll"ls -Alh --group-directories-first"
+export NIXPKGS_ALLOW_UNFREE=1
+source ~/.aliases
