@@ -46,5 +46,6 @@ for file in dotfiles/*; do
 done
 
 cd
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
 cd .config
 git clone git@github.com:Master449/neovim-config.git nvim
