@@ -7,3 +7,6 @@ alias gp="git push"
 alias ga="git add"
 alias gl="git log --all --oneline --decorate"
 
+alias cddow="cd /mnt/c/Users/a1942130/Downloads"
+alias cddoc="cd '/mnt/c/Users/a1942130/OneDrive - Northern Illinois University/Documents'"
+alias cddes="cd /mnt/c/Users/a1942130/Desktop"

@@ -44,3 +44,7 @@ for file in dotfiles/*; do
     echo "Could not create sym link at $HOME/.config/$(basename $file) (broken link?)"
   fi
 done
+
+cd
+cd .config
+git clone git@github.com:Master449/neovim-config.git nvim
