@@ -10,3 +10,7 @@ alias gl="git log --all --oneline --decorate"
 alias cddow="cd /mnt/c/Users/a1942130/Downloads"
 alias cddoc="cd '/mnt/c/Users/a1942130/OneDrive - Northern Illinois University/Documents'"
 alias cddes="cd /mnt/c/Users/a1942130/Desktop"
+alias cduse="cd /mnt/c/Users/a1942130"
+
+export PSHOME="/mnt/c/Windows/System32/WindowsPowerShell/v1.0"
+
