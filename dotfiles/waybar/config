@@ -1,43 +1,240 @@
+// Double Bar Config
+[
+// Top Bar Config
 {
-	"layer": "top",
-	"modules-left": ["cpu","memory","custom/media"],
-	"modules-center": ["clock"],
-	"modules-right": ["tray", "pulseaudio"],
-	
-	"pulseaudio": {
-		"tooltip": false,
-		"scroll-step": 5,
-		"format": "{icon} {volume}%",
-		"format-muted": "{icon} {volume}%",
-		"on-click":"pactl set-sink-mute @DEFAULT_SINK@ toggle",
-		"format-icons": {
-			"default": ["", "", ""]
-		}
-	},
-    "clock": {
-        "format": "{:%I:%M %p}"
-    },
-    "cpu": {
-        "interval": 10,
-        "format": "CPU {}%",
-        "max-length": 10
-    },
-    "memory": {
-        "interval": 10,
-        "format": "MEM {}%",
-        "max-length": 10
-    },
-    "custom/media": {
-        "interval": 30,
-        "format": "{icon} {}",
-        "return-type": "json",
-        "max-length": 20,
+    // Main Config
+    "name": "top_bar",
+    "layer": "top", // Waybar at top layer
+    "position": "top", // Waybar position (top|bottom|left|right)
+    "height": 36, // Waybar height (to be removed for auto height)
+    "spacing": 4, // Gaps between modules (4px)
+    "modules-left": ["hyprland/workspaces", "hyprland/submap"],
+    "modules-center": ["clock#time" ],
+    "modules-right": [ "clock/week", "custom/separator", "clock#month", "custom/separator", "clock#calendar"],
+
+    // Modules Config
+    "hyprland/workspaces": {
+        "on-click": "activate",  
+        "format": "{icon}",
         "format-icons": {
-            "spotify": " ",
-            "default": " "
+            "1": "󰲠",
+            "2": "󰲢",
+            "3": "󰲤",
+            "4": "󰲦",
+            "5": "󰲨",
+            "6": "󰲪",
+            "7": "󰲬",
+            "8": "󰲮",
+            "9": "󰲰",
+            "10": "󰿬",
+            "special": ""
+
+            // "active": "",
+            // "default": "",
+            // "empty": ""
         },
-        "escape": true,
-        "exec": "$HOME/.config/system_scripts/mediaplayer.py 2> /dev/null",
-        "on-click": "playerctl play-pause"
+        "show-special": true,
+        "persistent-workspaces": {
+            "*": 10,  
+        },
     },
-}
+
+    "hyprland/submap": {
+        "format": "<span color='#a6da95'>Mode:</span> {}",
+        "tooltip": false,
+    },
+
+    "clock#time": {
+        "format": "{:%I:%M %p}",
+        // "locale": "en_US.UTF-8",
+        // "timezones": [ "Europe/Kyiv", "America/New_York" ],
+    },
+
+    "custom/separator": {
+        "format": "|",
+        "tooltip": false,
+    },
+
+    "custom/separator_dot": {
+        "format": "•",
+        "tooltip": false,
+    },
+
+    "clock#week": {
+        "format": "{:%a}",
+    },
+
+    "clock#month": {
+        "format": "{:%h}",
+    },
+
+    "clock#calendar": {
+        "format": "{:%F}",
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "actions": {
+            "on-click-right": "mode",
+        },
+        "calendar": {
+            "mode"          : "month",
+            "mode-mon-col"  : 3,
+            "weeks-pos"     : "right",
+            "on-scroll"     : 1,
+            "on-click-right": "mode",
+            "format": {
+                "months":     "<span color='#f4dbd6'><b>{}</b></span>",
+                "days":       "<span color='#cad3f5'><b>{}</b></span>",
+                "weeks":      "<span color='#c6a0f6'><b>W{}</b></span>",
+                "weekdays":   "<span color='#a6da95'><b>{}</b></span>",
+                "today":      "<span color='#8bd5ca'><b><u>{}</u></b></span>"
+            }
+        },
+    },
+
+    "clock": {
+        "format": "{:%I:%M %p %Ez | %a • %h | %F}",
+        "format-alt": "{:%I:%M %p}",
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        // "locale": "en_US.UTF-8",
+        // "timezones": [ "Europe/Kyiv", "America/New_York" ],
+        "actions": {
+            "on-click-right": "mode",
+        },
+        "calendar": {
+            "mode"          : "month",
+            "mode-mon-col"  : 3,
+            "weeks-pos"     : "right",
+            "on-scroll"     : 1,
+            "on-click-right": "mode",
+            "format": {
+                "months":     "<span color='#f4dbd6'><b>{}</b></span>",
+                "days":       "<span color='#cad3f5'><b>{}</b></span>",
+                "weeks":      "<span color='#c6a0f6'><b>W{}</b></span>",
+                "weekdays":   "<span color='#a6da95'><b>{}</b></span>",
+                "today":      "<span color='#8bd5ca'><b><u>{}</u></b></span>"
+            }
+        },
+    },
+
+    "custom/media": {
+        "format": "{icon}󰎈",
+        "restart-interval": 2,
+        "return-type": "json",
+        "format-icons": {
+            "Playing": "",
+            "Paused": "",
+        },
+        "max-length": 35,
+        "exec": "",
+        "on-click": "playerctl play-pause",
+        "on-click-right": "playerctl next",
+        "on-click-middle": "playerctl prev",
+        "on-scroll-up": "playerctl volume 0.05-",
+        "on-scroll-down": "playerctl volume 0.05+",
+        "smooth-scrolling-threshold": "0.1",
+    },
+
+    "bluetooth": {
+        "format": "󰂯",
+        "format-disabled": "󰂲",
+        "format-connected": "󰂱 {device_alias}",
+        "format-connected-battery": "󰂱 {device_alias} (󰥉 {device_battery_percentage}%)",
+        // "format-device-preference": [ "device1", "device2" ], // preference list deciding the displayed device
+        "tooltip-format": "{controller_alias}\t{controller_address} ({status})\n\n{num_connections} connected",
+        "tooltip-format-disabled": "bluetooth off",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address} ({status})\n\n{num_connections} connected\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+        "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t({device_battery_percentage}%)",
+        "max-length": 35,
+        "on-click": "fish -c bluetooth_toggle",
+        "on-click-right": "blueman-manager",
+    },
+
+    "network": {
+        "format": "󰤭",
+        "format-wifi": "{icon}({signalStrength}%){essid}",
+        "format-icons": [ "󰤯", "󰤟", "󰤢", "󰤥", "󰤨" ],
+        "format-disconnected": "󰤫 Disconnected",
+        "tooltip-format": "wifi <span color='#ee99a0'>off</span>",
+        "tooltip-format-wifi":"SSID: {essid}({signalStrength}%), {frequency} MHz\nInterface: {ifname}\nIP: {ipaddr}\nGW: {gwaddr}\n\n<span color='#a6da95'>{bandwidthUpBits}</span>\t<span color='#ee99a0'>{bandwidthDownBits}</span>\t<span color='#c6a0f6'>󰹹{bandwidthTotalBits}</span>",
+        "tooltip-format-disconnected": "<span color='#ed8796'>disconnected</span>",
+        // "format-ethernet": "󰈀 {ipaddr}/{cidr}",
+        // "format-linked": "󰈀 {ifname} (No IP)",
+        // "tooltip-format-ethernet":"Interface: {ifname}\nIP: {ipaddr}\nGW: {gwaddr}\nNetmask: {netmask}\nCIDR: {cidr}\n\n<span color='#a6da95'>{bandwidthUpBits}</span>\t<span color='#ee99a0'>{bandwidthDownBits}</span>\t<span color='#c6a0f6'>󰹹{bandwidthTotalBits}</span>",
+        "max-length": 35,
+        "on-click": "fish -c wifi_toggle",
+        "on-click-right": "wezterm start nmtui",
+    },
+
+    "group/misc": {
+        "orientation": "horizontal",
+        "modules": [
+            "custom/webcam",
+            "privacy",
+            "custom/recording",
+            "custom/geo",
+            "custom/media",
+            "custom/night_mode",
+            "custom/airplane_mode",
+            "idle_inhibitor",
+        ],
+    },
+
+    "privacy": {
+        "icon-spacing": 1,
+        "icon-size": 12,
+        "transition-duration": 250,
+        "modules": [
+            {
+                "type": "audio-in",
+            },
+            {
+                "type": "screenshare",
+            },
+        ]
+    },
+
+},
+
+
+// Bottom Bar Config
+{
+    // Main Config
+    "name": "bottom_bar",
+    "layer": "top", // Waybar at top layer
+    "position": "bottom", // Waybar position (top|bottom|left|right)
+    "height": 36, // Waybar height (to be removed for auto height)
+    "spacing": 4, // Gaps between modules (4px)
+    "modules-left": ["user"],
+    "modules-center": ["hyprland/window"],
+    "modules-right": ["keyboard-state", "hyprland/language"],
+
+    // Modules Config
+    "hyprland/window": {
+        "format": " {title} ",
+        "max-length": 50,
+    },
+
+    "hyprland/language": {
+        "format-en": "🇺🇸 ENG (US)",
+        "format-uk": "🇺🇦 UKR",
+        "format-ru": "🇷🇺 RUS",
+        "keyboard-name": "at-translated-set-2-keyboard",
+        "on-click": "hyprctl switchxkblayout at-translated-set-2-keyboard next",
+    },
+
+    "keyboard-state": {
+        "capslock": true,
+        // "numlock": true,
+        "format": "{name} {icon}",
+        "format-icons": {
+            "locked": "",
+            "unlocked": ""
+        }
+    },
+
+    "user": {
+        "format": " <span color='#8bd5ca'>{user}</span> (up <span color='#f5bde6'>{work_d} d</span> <span color='#8aadf4'>{work_H} h</span> <span color='#eed49f'>{work_M} min</span> <span color='#a6da95'>↑</span>)",
+        "icon": true,
+    },
+}]
+
