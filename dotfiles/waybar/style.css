@@ -41,11 +41,16 @@ window.bottom_bar .modules-left {
   margin-bottom: 5;
 }
 
-window.bottom_bar .modules-right {
-  background-color: alpha(@surface1, 0.7);
-  border-radius: 15 0 0 15;
+window.top_bar .modules-right {
   padding-left: 20;
-  padding-right: 20;
+  margin-right: 20;
+  margin-top: 5;
+  margin-bottom: 5;
+}
+
+window.bottom_bar .modules-right {
+  padding-left: 20;
+  margin-right: 20;
   margin-top: 5;
   margin-bottom: 5;
 }
@@ -109,11 +114,16 @@ window.top_bar .modules-center {
   color: @green;
 }
 
+#custom-pipewire {
+  color: white;
+  margin-right: 50px;
+}
+
 #custom-separator_dot {
   color: @green;
 }
 
-#clock.time {
+#clock {
   color: @flamingo;
 }
 

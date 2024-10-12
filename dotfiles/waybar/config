@@ -9,8 +9,9 @@
     "height": 36, // Waybar height (to be removed for auto height)
     "spacing": 4, // Gaps between modules (4px)
     "modules-left": ["hyprland/workspaces", "hyprland/submap"],
-    "modules-center": ["clock#time" ],
-    "modules-right": [ "clock/week", "custom/separator", "clock#month", "custom/separator", "clock#calendar"],
+    "modules-center": [ "clock" ],
+    "modules-right": ["cpu", "custom/separator", "memory", "custom/separator", "pulseaudio", "systemd-failed-units"],
+	"output": [ "DP-1", "!DP-2" ],
 
     // Modules Config
     "hyprland/workspaces": {
@@ -25,8 +26,6 @@
             "6": "󰲪",
             "7": "󰲬",
             "8": "󰲮",
-            "9": "󰲰",
-            "10": "󰿬",
             "special": ""
 
             // "active": "",
@@ -35,7 +34,7 @@
         },
         "show-special": true,
         "persistent-workspaces": {
-            "*": 10,  
+            "*": 8,  
         },
     },
 
@@ -45,9 +44,7 @@
     },
 
     "clock#time": {
-        "format": "{:%I :%M %p}",
-        // "locale": "en_US.UTF-8",
-        // "timezones": [ "Europe/Kyiv", "America/New_York" ],
+        "format": "{:%I:%M %p}",
     },
 
     "custom/separator": {
@@ -91,11 +88,9 @@
     },
 
     "clock": {
-        "format": "{:%I:%M %p %Ez | %a • %h | %F}",
+        "format": "{:%I:%M %p | %A %B %d}",
         "format-alt": "{:%I:%M %p}",
         "tooltip-format": "<tt><small>{calendar}</small></tt>",
-        // "locale": "en_US.UTF-8",
-        // "timezones": [ "Europe/Kyiv", "America/New_York" ],
         "actions": {
             "on-click-right": "mode",
         },
@@ -124,7 +119,7 @@
             "Paused": "",
         },
         "max-length": 35,
-        "exec": "",
+        "exec": "fish -c fetch_music_player_data",
         "on-click": "playerctl play-pause",
         "on-click-right": "playerctl next",
         "on-click-middle": "playerctl prev",
@@ -173,10 +168,17 @@
             "custom/recording",
             "custom/geo",
             "custom/media",
+            "custom/dunst",
             "custom/night_mode",
             "custom/airplane_mode",
             "idle_inhibitor",
         ],
+    },
+
+    "custom/webcam": {
+        "interval": 1,
+        "exec": "fish -c check_webcam",
+        "return-type": "json",
     },
 
     "privacy": {
@@ -193,33 +195,136 @@
         ]
     },
 
+    "custom/recording": {
+        "interval": 1,
+        "exec-if": "pgrep wl-screenrec",
+        "exec": "fish -c check_recording",
+        "return-type": "json",
+    },
+
+    "custom/geo": {
+        "interval": 1,
+        "exec-if": "pgrep geoclue",
+        "exec": "fish -c check_geo_module",
+        "return-type": "json",
+    },
+
+    "custom/airplane_mode": {
+        "return-type": "json",
+        "interval": 1,
+        "exec": "fish -c check_airplane_mode",
+        "on-click": "fish -c airplane_mode_toggle",
+    },
+
+    "custom/night_mode": {
+        "return-type": "json",
+        "interval": 1,
+        "exec": "fish -c check_night_mode",
+        "on-click": "fish -c night_mode_toggle",
+    },
+    
+    "custom/dunst": {
+        "return-type": "json",
+        "exec": "fish -c dunst_pause",
+        "on-click": "dunstctl set-paused toggle",
+        "restart-interval": 1,
+    },
+
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "󰛐",
+            "deactivated": "󰛑"
+        },
+        "tooltip-format-activated": "idle-inhibitor <span color='#a6da95'>on</span>",
+        "tooltip-format-deactivated": "idle-inhibitor <span color='#ee99a0'>off</span>",
+        "start-activated": true,
+    },
+
+    "custom/logout_menu": {
+        "return-type": "json",
+        "exec": "echo '{ \"text\":\"󰐥\", \"tooltip\": \"logout menu\" }'",
+        "interval": "once",
+        "on-click": "fish -c wlogout_uniqe",
+    },
+
+    "tray":{
+        "icon-size": 20,
+        "spacing": 2,
+    },
+
+    "cpu": {
+        "format": "CPU {usage}%",
+        "states": {
+            "high": 90,
+            "upper-medium": 70,
+            "medium": 50,
+            "lower-medium": 30,
+            "low": 10,
+        },
+        "on-click": "wezterm start btop",
+        "on-click-right": "wezterm start btm",
+    },
+    
+    "memory": {
+        "format": "MEM {percentage}%",
+        "tooltip-format": "{used} / {total} GiB",
+        "states": {
+            "high": 90,
+            "upper-medium": 70,
+            "medium": 50,
+            "lower-medium": 30,
+            "low": 10,
+        },
+        "on-click": "wezterm start btop",
+        "on-click-right": "wezterm start btm",
+    },
+
+    "temperature": {
+        "tooltip": false,
+        "thermal-zone": 8,
+        "critical-threshold": 80,
+        "format": "{icon}{temperatureC}󰔄",
+        "format-critical": "🔥{icon}{temperatureC}󰔄",
+        "format-icons": [ "", "", "", "", "" ],
+    },
+    
+    "pulseaudio": {
+        "states": {
+            "high": 90,
+            "upper-medium": 70,
+            "medium": 50,
+            "lower-medium": 30,
+            "low": 10,
+        },
+        "tooltip-format": "{desc}",
+        "format": "VOL {volume}%",  
+        "format-muted": "{volume}%",
+        "reverse-scrolling": true,
+        "reverse-mouse-scrolling": true,
+        "on-click": "pavucontrol",
+    },
+
+    "systemd-failed-units": {
+        "format": "✗ {nr_failed}",
+    },
 },
-
-
-// Bottom Bar Config
+// Bottom bar
 {
-    // Main Config
     "name": "bottom_bar",
     "layer": "top", // Waybar at top layer
     "position": "bottom", // Waybar position (top|bottom|left|right)
     "height": 36, // Waybar height (to be removed for auto height)
     "spacing": 4, // Gaps between modules (4px)
-    "modules-left": ["user"],
-    "modules-center": ["hyprland/window"],
-    "modules-right": ["keyboard-state", "hyprland/language"],
+    "modules-left": [ "user" ],
+    "modules-center": [ "hyprland/window" ],
+    "modules-right": [ "keyboard-state" ],
+	"output": [ "DP-1", "!DP-2" ],
 
     // Modules Config
     "hyprland/window": {
-        "format": " {title} ",
+        "format": "{title}",
         "max-length": 50,
-    },
-
-    "hyprland/language": {
-        "format-en": "🇺🇸 ENG (US)",
-        "format-uk": "🇺🇦 UKR",
-        "format-ru": "🇷🇺 RUS",
-        "keyboard-name": "at-translated-set-2-keyboard",
-        "on-click": "hyprctl switchxkblayout at-translated-set-2-keyboard next",
     },
 
     "keyboard-state": {
@@ -233,8 +338,10 @@
     },
 
     "user": {
-        "format": " <span color='#8bd5ca'>{user}</span>   <span color='#f5bde6'>{work_d} d</span> <span color='#8aadf4'>{work_H} h</span> <span color='#eed49f'>{work_M} min</span> <span color='#a6da95'>↑</span>)",
+        "format": " <span color='#fff'>{user} (up {work_H}:{work_M}:{work_S})</span>",
         "icon": true,
+		"interval": 1,
     },
-}]
+},
 
+]
