@@ -48,7 +48,7 @@ window.top_bar .modules-right {
   margin-bottom: 5;
 }
 
-window.bottom_bar .modules-right {
+window.bottom_bar #tray {
   padding-left: 20;
   margin-right: 20;
   margin-top: 5;

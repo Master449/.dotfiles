@@ -4,6 +4,7 @@
     "title",
     "separator",
     "os",
+    "wm",
     "host",
     "kernel",
     "uptime",

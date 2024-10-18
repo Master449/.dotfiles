@@ -318,7 +318,7 @@
     "spacing": 4, // Gaps between modules (4px)
     "modules-left": [ "user" ],
     "modules-center": [ "hyprland/window" ],
-    "modules-right": [ "keyboard-state" ],
+    "modules-right": [ "tray" ],
 	"output": [ "DP-1", "!DP-2" ],
 
     // Modules Config
@@ -326,6 +326,11 @@
         "format": "{title}",
         "max-length": 50,
     },
+	
+	"tray": {
+		"icon-size": 21,
+		"spacing": 10
+	},
 
     "keyboard-state": {
         "capslock": true,
