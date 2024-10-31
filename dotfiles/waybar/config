@@ -10,32 +10,26 @@
     "spacing": 4, // Gaps between modules (4px)
     "modules-left": ["hyprland/workspaces", "hyprland/submap"],
     "modules-center": [ "clock" ],
-    "modules-right": ["cpu", "custom/separator", "memory", "custom/separator", "pulseaudio", "systemd-failed-units"],
-	"output": [ "DP-1", "!DP-2" ],
+    "modules-right": ["backlight", "custom/separator", "cpu", "custom/separator", "memory", "custom/separator", "pulseaudio", "custom/separator", "battery"],
+	"output": [ "eDP-1", "!DP-2" ],
 
     // Modules Config
     "hyprland/workspaces": {
         "on-click": "activate",  
         "format": "{icon}",
         "format-icons": {
-            "1": "󰲠",
-            "2": "󰲢",
-            "3": "󰲤",
-            "4": "󰲦",
-            "5": "󰲨",
-            "6": "󰲪",
-            "7": "󰲬",
-            "8": "󰲮",
-            "special": ""
-
-            // "active": "",
-            // "default": "",
-            // "empty": ""
+            "active": "",
+            "default": "",
+            "empty": ""
         },
         "show-special": true,
         "persistent-workspaces": {
-            "*": 8,  
+            "*": 4,  
         },
+    },
+
+    "backlight": {
+	"format": "BRI {percent}% "
     },
 
     "hyprland/submap": {
@@ -126,6 +120,9 @@
         "on-scroll-up": "playerctl volume 0.05-",
         "on-scroll-down": "playerctl volume 0.05+",
         "smooth-scrolling-threshold": "0.1",
+    },
+    "battery": {
+	"format": " BAT {capacity}%"
     },
 
     "bluetooth": {
