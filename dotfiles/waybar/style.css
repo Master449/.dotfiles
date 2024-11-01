@@ -46,6 +46,8 @@ window.top_bar .modules-right {
   margin-right: 20;
   margin-top: 5;
   margin-bottom: 5;
+  font-weight: bold;
+  font-size: 12pt;
 }
 
 window.bottom_bar #tray {
@@ -124,6 +126,8 @@ window.top_bar .modules-center {
 }
 
 #clock {
+  font-weight: bold;
+  font-size: 12pt;
   color: @flamingo;
 }
 
@@ -191,6 +195,10 @@ window.top_bar .modules-center {
 
 #idle_inhibitor.deactivated {
   color: @subtext0;
+}
+
+#custom-notch_ignore {
+  margin: 0 120px;
 }
 
 #custom-dunst.off {
@@ -370,6 +378,8 @@ window.left_bar .modules-center {
 
 #battery {
   color: @teal;
+  font-weight: bold;
+  font-size: 12pt;
 }
 
 #battery.low {
@@ -393,7 +403,7 @@ window.left_bar .modules-center {
 }
 
 #backlight {
-  color: @overlay0;
+  color: @sky;
 }
 
 #backlight.low {
@@ -417,7 +427,7 @@ window.left_bar .modules-center {
 }
 
 #pulseaudio.bluetooth {
-  color: @sapphire;
+  color: @rosewater;
 }
 
 #pulseaudio.muted {
@@ -425,7 +435,7 @@ window.left_bar .modules-center {
 }
 
 #pulseaudio {
-  color: @text;
+  color: @muave;
 }
 
 #pulseaudio.low {

@@ -6,11 +6,11 @@
     "name": "top_bar",
     "layer": "top", // Waybar at top layer
     "position": "top", // Waybar position (top|bottom|left|right)
-    "height": 36, // Waybar height (to be removed for auto height)
+    "height": 45, // Waybar height (to be removed for auto height)
     "spacing": 4, // Gaps between modules (4px)
-    "modules-left": ["hyprland/workspaces", "hyprland/submap"],
-    "modules-center": [ "clock" ],
-    "modules-right": ["backlight", "custom/separator", "cpu", "custom/separator", "memory", "custom/separator", "pulseaudio", "custom/separator", "battery"],
+    "modules-left": ["hyprland/workspaces" ],
+    "modules-center": [ "clock#time", "custom/notch_ignore", "battery" ],
+    "modules-right": ["backlight", "custom/separator", "cpu", "custom/separator", "memory", "custom/separator", "pulseaudio" ],
 	"output": [ "eDP-1", "!DP-2" ],
 
     // Modules Config
@@ -24,12 +24,12 @@
         },
         "show-special": true,
         "persistent-workspaces": {
-            "*": 4,  
+            "*": 6,  
         },
     },
 
     "backlight": {
-	"format": "BRI {percent}% "
+        "format": "BRI {percent}% "
     },
 
     "hyprland/submap": {
@@ -50,6 +50,10 @@
         "format": "•",
         "tooltip": false,
     },
+
+	"custom/notch_ignore": {
+		"format": " "
+	},
 
     "clock#week": {
         "format": "{:%a}",
@@ -287,13 +291,6 @@
     },
     
     "pulseaudio": {
-        "states": {
-            "high": 90,
-            "upper-medium": 70,
-            "medium": 50,
-            "lower-medium": 30,
-            "low": 10,
-        },
         "tooltip-format": "{desc}",
         "format": "VOL {volume}%",  
         "format-muted": "{volume}%",
