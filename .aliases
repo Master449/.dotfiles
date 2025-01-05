@@ -16,5 +16,6 @@ alias cduse="cd /mnt/c/Users/a1942130"
 export PSHOME="/mnt/c/Windows/System32/WindowsPowerShell/v1.0"
 
 if [[ $(command -v bat) ]]; then
-  alias cat=bat
+  alias cat=batcat
 fi
+
