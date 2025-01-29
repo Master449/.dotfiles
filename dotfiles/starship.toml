@@ -18,5 +18,5 @@ disabled = true
 disabled = true
 
 [git_status]
-format = '(git [$all_status$ahead_behind]($style) )'
-up_to_date = '[✔](green)'
+format = '([git](green) [$all_status$ahead_behind]($style) )'
+up_to_date = '(✔)(green)'
