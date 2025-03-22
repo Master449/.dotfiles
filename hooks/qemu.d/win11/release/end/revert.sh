@@ -12,7 +12,7 @@ exec 1>/home/david/Desktop/revertlog.out 2>&1
 set -x
 
 # load vars
-source "/var/lib/libvirt/hooks/kvm.conf"
+#source "/var/lib/libvirt/hooks/kvm.conf"
 
 # Unload VFIO
 modprobe -r vfio_pci
@@ -20,8 +20,8 @@ modprobe -r vfio_iommu_type1
 modprobe -r vfio
 
 # Rebind GPU
-virsh nodedev-reattach $VIRSH_GPU_VIDEO
-virsh nodedev-reattach $VIRSH_GPU_AUDIO
+#virsh nodedev-reattach $VIRSH_GPU_VIDEO
+#virsh nodedev-reattach $VIRSH_GPU_AUDIO
 
 # Load AMD and Intel Audio Drivers
 modprobe amdgpu
@@ -31,4 +31,4 @@ modprobe snd_hda_intel
 sleep 3
 
 # start gdm3
-systemctl start display-manager
+systemctl start gdm3
