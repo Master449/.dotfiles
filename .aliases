@@ -1,6 +1,6 @@
 
 alias ls="ls --color=auto"
-alias ll="ls -Alhp --group-directories-first"
+alias ll="ls -Alhp"
 
 alias gs="git status"
 alias gc="git commit"
